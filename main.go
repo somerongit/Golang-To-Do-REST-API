@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/To-Do-REST-API/controller"
 	"github.com/To-Do-REST-API/model"
@@ -13,6 +14,7 @@ func main() {
 	mux := controller.Register()
 	db := model.Connect()
 	defer db.Close()
-	println("Server is listnening at port:3000")
-	log.Fatal(http.ListenAndServe(":3000", mux))
+	port := os.Getenv("PORT")
+	println("Server is listnening at port:", port)
+	log.Fatal(http.ListenAndServe(":"+port, mux))
 }
